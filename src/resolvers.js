@@ -2,6 +2,7 @@ import users from "./users.js";
 import bcrypt from "bcryptjs";
 import { GraphQLError } from "graphql";
 import { requireAuth, signToken } from "./auth.js";
+import { privateField } from "./permissions.js";
 
 const resolvers = {
   Query: {
@@ -38,6 +39,11 @@ const resolvers = {
         user,
       };
     },
+  },
+  User: {
+    email: privateField("email"),
+    phone: privateField("phone"),
+    role: privateField("role"),
   },
 };
 

@@ -4,11 +4,11 @@ Cập nhật file này sau mỗi thay đổi đáng kể.
 
 ## Current Phase
 
-In progress
+Complete
 
 ## Current Goal
 
-Unit 04
+Hoàn tất cả 4 unit
 
 ## Completed
 
@@ -16,6 +16,7 @@ Unit 04
 - Unit 01: Apollo Server (query hello, helper test)
 - Unit 02: API truy vấn người dùng (users, user(id)), chưa xác thực
 - Unit 03: JWT (login, me, context, requireAuth)
+- Unit 04: phân quyền cấp trường (admin xem tất cả; user thường chỉ xem công khai + chính mình)
 
 ## In Progress
 
@@ -23,16 +24,12 @@ Unit 04
 
 ## Next Up
 
-1. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
+- Các phần mở rộng không bắt buộc.
 
 ## Open Questions
 
 1. **User thường có được xem thông tin riêng tư của chính mình không?**
-   Đề ghi "user bình thường chỉ được truy vấn thông tin công khai". Mặc định hiện tại: **được xem của chính
-   mình** (qua `me` và khi `id` trùng). Nếu giáo viên hiểu nghiêm ngặt, bỏ vế "chính mình" trong
-   `canViewPrivate` và sửa test tương ứng ở Unit 04. Cần xác nhận trước khi nộp.
-2. **Ngoại lệ D1** (bắt buộc đuôi `.js` trong import vì Node ESM) — xác nhận chấp nhận, hoặc chuyển sang
-   TypeScript + `tsx`. Xem `code-standards.md`.
+   Hiện triển khai: có. Cần giáo viên xác nhận trước khi nộp.
 
 ## Architecture Decisions
 

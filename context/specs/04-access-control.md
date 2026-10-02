@@ -33,8 +33,8 @@ lý do trường riêng tư nullable: nếu non-null, lỗi sẽ lan lên làm n
 
 ### `src/permissions.js` (named export)
 - `canViewPrivate(context, target)`: `false` nếu không có `context.user`; ngược lại `true` khi
-  `context.user.role === "ADMIN"` **hoặc** `context.user.id === target.id`. Điều kiện dài viết mỗi điều kiện
-  một dòng, toán tử `||` đứng đầu dòng.
+  `context.user.role === "ADMIN"` **hoặc** `context.user.id === target.id`. Viết điều kiện trên một dòng nếu
+  không vượt 100 ký tự (xem ngoại lệ D3).
 - `privateField(fieldName)`: trả về resolver `(parent, args, context) => ...`; nếu `!canViewPrivate(context, parent)`
   thì ném `GraphQLError` `FORBIDDEN` (`http.status` 403) với thông báo nêu tên trường; ngược lại trả
   `parent[fieldName]`.

@@ -94,6 +94,7 @@ bằng đúng một dòng trống; chuỗi method dài thì thụt dòng và đ�
 |---|---|---|---|
 | D1 | 10.10: không viết đuôi `.js` khi import | **Bắt buộc viết `.js`** cho import file nội bộ (`./users.js`) | Node.js ESM thuần (`"type": "module"`) không phân giải đường dẫn thiếu đuôi. Đây là ràng buộc kỹ thuật, không phải sở thích. Import package (`"graphql"`) không cần đuôi. |
 | D2 | 23.6/23.7: tên file = tên default export | `auth.js`, `permissions.js`, `test/helpers.js` có **nhiều named export** nên tên file theo chủ đề | 10.6 chỉ áp dụng default export khi module có một export. |
+| D3 | 17.1: toán tử logic đứng đầu dòng | Khi Prettier tự chia dòng thì chấp nhận `\|\|` ở cuối dòng. Ưu tiên viết điều kiện ngắn trên một dòng. Không dùng `prettier-ignore`. | Prettier không cấu hình được vị trí toán tử logic; lách bằng `prettier-ignore` làm tiền lệ xấu. |
 
 Muốn đổi D1 (ví dụ chuyển sang TypeScript + trình chạy `tsx`) phải sửa file này, `architecture.md` và ghi
 vào `progress-tracker.md` **trước** khi code.
