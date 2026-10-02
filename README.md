@@ -1,10 +1,7 @@
 # GraphQL + JWT + Phân quyền (Apollo Server 5)
 
-Bài thực hành: server GraphQL cung cấp API truy vấn người dùng, xác thực bằng JWT; **admin** xem toàn bộ
-thông tin, **user thường** chỉ xem thông tin công khai.
-
-Repo này là **nền tảng để AI (Codex) triển khai theo spec** — hiện **chưa có code**. Cách làm là
-Spec-driven Development: bạn là kiến trúc sư, Codex là người thực thi.
+Bài thực hành: server GraphQL cung cấp API truy vấn người dùng và xác thực bằng JWT. **Admin** xem toàn bộ
+thông tin; **user thường** xem thông tin công khai của mọi người và thông tin riêng tư của chính mình.
 
 ## Có gì trong repo
 
@@ -25,35 +22,85 @@ package.json               script: dev, start, test, lint, format, check
 
 ## Các unit
 
-| Unit | Yêu cầu đề | Nội dung |
-|---|---|---|
-| 01 | Apollo Server | Server chạy, query `hello`, helper test |
-| 02 | API truy vấn người dùng | `users`, `user(id)` (chưa xác thực) |
-| 03 | JWT | `login`, `me`, context từ token, bắt buộc đăng nhập |
-| 04 | Kiểm soát quyền | Phân quyền cấp trường admin / user thường |
+| Unit | Yêu cầu đề | Nội dung | Trạng thái |
+|---|---|---|---|
+| 01 | Apollo Server | Server chạy, query `hello`, helper test | Hoàn thành |
+| 02 | API truy vấn người dùng | `users`, `user(id)` (chưa xác thực) | Hoàn thành |
+| 03 | JWT | `login`, `me`, context từ token, bắt buộc đăng nhập | Hoàn thành |
+| 04 | Kiểm soát quyền | Phân quyền cấp trường admin / user thường | Hoàn thành |
 
-## Cách chạy với Codex
+## Cách chạy
 
 ```bash
-npm install              # chỉ cài công cụ lint/format; package chạy server sẽ do từng unit cài
+npm install
+cp .env.example .env
+npm run dev
+npm run check
 ```
 
-Mở Codex tại thư mục này, rồi với **mỗi unit** (bắt đầu từ 01) dùng 3 prompt trong
-`context/ai-workflow-rules.md`:
+## Thử nhanh
 
-1. **Thực thi** — "Đọc AGENTS.md... Đọc context/specs/01-apollo-server.md... Làm đúng theo spec."
-2. **Sửa lệch** (nếu cần) — nêu *Spec yêu cầu / Hiện tại*, chỉ sửa điểm đó.
-3. **Đóng unit** — cập nhật tracker, commit, push nhánh `feat/01-apollo-server`.
+Tài khoản mẫu:
 
-Sau mỗi unit, **tự xem diff** và chạy `npm run check` trước khi sang unit tiếp theo. Nếu Codex đi chệch,
-sửa spec/tracker rồi cho làm lại, đừng vá code tay.
+| Username | Password |
+|---|---|
+| `admin` | `admin123` |
+| `an` | `123456` |
+| `binh` | `123456` |
 
-## Hai điều cần xác nhận trước khi nộp
+Đăng nhập để nhận token:
 
-Ghi trong `context/progress-tracker.md` → *Open Questions*:
+```graphql
+mutation Login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    token
+    user {
+      id
+      username
+      fullName
+    }
+  }
+}
+```
 
-1. User thường có được xem thông tin riêng tư của **chính mình** không (mặc định: có).
-2. Ngoại lệ D1: import nội bộ phải viết đuôi `.js` vì Node ESM bắt buộc.
+Ví dụ variables:
+
+```json
+{
+  "username": "an",
+  "password": "123456"
+}
+```
+
+Gửi token trong header cho các truy vấn cần đăng nhập:
+
+```http
+Authorization: Bearer <token>
+```
+
+Truy vấn danh sách người dùng:
+
+```graphql
+{
+  users {
+    id
+    username
+    fullName
+    email
+    phone
+    role
+  }
+}
+```
+
+| Trạng thái đăng nhập | Kết quả |
+|---|---|
+| Không có token | Query `users` bị từ chối với `UNAUTHENTICATED`. |
+| User thường (`an`, `binh`) | Xem trường công khai của mọi người; xem `email`, `phone`, `role` của chính mình. Trường riêng tư của người khác là `null` kèm lỗi `FORBIDDEN`. |
+| Admin | Xem tất cả trường của mọi người. |
+
+User thường được xem thông tin riêng tư của chính mình theo triển khai hiện tại; cần giáo viên xác nhận
+quy tắc này trước khi nộp.
 
 ## Đẩy lên GitHub
 
