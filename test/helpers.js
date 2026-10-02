@@ -1,4 +1,9 @@
 import createServer from "../src/createServer.js";
+import users from "../src/users.js";
+
+export const as = (username) => ({
+  user: users.find((user) => user.username === username) ?? null,
+});
 
 export const run = async (query, { variables, contextValue = {} } = {}) => {
   const server = createServer();

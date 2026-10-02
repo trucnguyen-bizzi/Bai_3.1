@@ -37,7 +37,7 @@ type Mutation {
 | Tình huống | Kết quả |
 |---|---|
 | `hello` không token | Hoạt động bình thường (công khai) |
-| `users` / `user` / `me` không token, token sai, hết hạn, ký bằng khóa khác | Lỗi `UNAUTHENTICATED`, `data` = `null` |
+| `users` / `user` / `me` không token, token sai, hết hạn, ký bằng khóa khác | Lỗi `UNAUTHENTICATED`. `data` là `null` với `users` (kiểu `[User!]!` non-null nên null lan lên); `data` là `{ me: null }` với `me` và `{ user: null }` với `user` (kiểu nullable). |
 | `login` đúng | `{ token, user }` |
 | `login` sai mật khẩu **hoặc** sai username | Lỗi `UNAUTHENTICATED`, **cùng một thông báo** |
 | `me` khi đã đăng nhập | Trả về chính người đăng nhập |
@@ -91,7 +91,9 @@ Cài: `npm install jsonwebtoken`
 - [ ] Token ký bằng khóa khác → `null`
 - [ ] Thiếu header hoặc sai định dạng (`Token abc`) → `null`
 - [ ] Payload token chỉ có các khóa `exp`, `iat`, `sub` (không có role/email)
-- [ ] `users` không đăng nhập → `UNAUTHENTICATED` và `data` là `null`
+- [ ] `users` không đăng nhập: `errors[0].extensions.code` là `UNAUTHENTICATED` và `data` là `null`
+- [ ] `me` không đăng nhập: `errors[0].extensions.code` là `UNAUTHENTICATED` và `data.me` là `null`
+- [ ] `user(id)` không đăng nhập: `errors[0].extensions.code` là `UNAUTHENTICATED` và `data.user` là `null`
 - [ ] `me` trả đúng người đang đăng nhập
 - [ ] `hello` vẫn truy cập được khi không đăng nhập
 - [ ] Thử qua HTTP thật: không token bị chặn; có token qua được (không để lộ stacktrace trong response)

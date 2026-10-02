@@ -8,13 +8,14 @@ In progress
 
 ## Current Goal
 
-Unit 03
+Unit 04
 
 ## Completed
 
 - Khung dự án: context (6 file), spec 4 unit, cấu hình ESLint + Prettier, `AGENTS.md`.
 - Unit 01: Apollo Server (query hello, helper test)
 - Unit 02: API truy vấn người dùng (users, user(id)), chưa xác thực
+- Unit 03: JWT (login, me, context, requireAuth)
 
 ## In Progress
 
@@ -22,8 +23,7 @@ Unit 03
 
 ## Next Up
 
-1. Unit 03 — Xác thực JWT (`03-jwt-authentication.md`)
-2. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
+1. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
 
 ## Open Questions
 
@@ -42,6 +42,8 @@ Unit 03
 - Chỉ chấp nhận HS256 khi verify (chặn tấn công đổi thuật toán).
 - Phân quyền ở resolver cấp trường để mọi đường truy vấn (`me`, `users`, `user`) đều bị kiểm tra như nhau.
 - Trường riêng tư nullable để `FORBIDDEN` không làm null lan lên cả danh sách.
+- Giữ `user`/`me` nullable vì Unit 02 yêu cầu `user(id)` không tìm thấy trả null không lỗi; mã lỗi
+  `UNAUTHENTICATED` là hợp đồng với client, hình dạng `data` phụ thuộc kiểu trả về (null propagation).
 - Test chạy bằng `server.executeOperation` (không mở cổng mạng). Kết quả GraphQL là object không có
   prototype nên helper phải chuẩn hóa qua `JSON.parse(JSON.stringify(...))` trước khi `deepEqual`.
 - `node --test test/*.test.js` (chỉ định mẫu file) để `test/helpers.js` không bị chạy như một file test.
@@ -51,4 +53,5 @@ Unit 03
 
 - Node.js >= 20 (Apollo Server 5 yêu cầu Node 20 trở lên).
 - Unit 02 cố ý để lộ email/phone/role cho mọi người; siết ở Unit 03 và 04.
+- Unit 03: mọi user đã đăng nhập vẫn thấy email/phone/role của mọi người; siết ở Unit 04.
 - Kỳ vọng số test tích lũy sau mỗi unit (tham khảo từ lần làm thử): 01 → 2, 02 → 7, 03 → 17, 04 → 26.
