@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",
+    "bcryptjs": "^3.0.3",
     "graphql": "^16.14.2"
   }
 }

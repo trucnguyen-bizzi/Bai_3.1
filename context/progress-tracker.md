@@ -8,12 +8,13 @@ In progress
 
 ## Current Goal
 
-Unit 02
+Unit 03
 
 ## Completed
 
 - Khung dự án: context (6 file), spec 4 unit, cấu hình ESLint + Prettier, `AGENTS.md`.
 - Unit 01: Apollo Server (query hello, helper test)
+- Unit 02: API truy vấn người dùng (users, user(id)), chưa xác thực
 
 ## In Progress
 
@@ -21,9 +22,8 @@ Unit 02
 
 ## Next Up
 
-1. Unit 02 — API truy vấn người dùng (`02-user-query-api.md`)
-2. Unit 03 — Xác thực JWT (`03-jwt-authentication.md`)
-3. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
+1. Unit 03 — Xác thực JWT (`03-jwt-authentication.md`)
+2. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
 
 ## Open Questions
 
@@ -50,4 +50,5 @@ Unit 02
 ## Session Notes
 
 - Node.js >= 20 (Apollo Server 5 yêu cầu Node 20 trở lên).
+- Unit 02 cố ý để lộ email/phone/role cho mọi người; siết ở Unit 03 và 04.
 - Kỳ vọng số test tích lũy sau mỗi unit (tham khảo từ lần làm thử): 01 → 2, 02 → 7, 03 → 17, 04 → 26.
