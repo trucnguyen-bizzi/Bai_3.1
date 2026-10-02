@@ -4,15 +4,16 @@ Cập nhật file này sau mỗi thay đổi đáng kể.
 
 ## Current Phase
 
-Not started — nền tảng (context, spec, công cụ lint) đã sẵn sàng, **chưa có code**.
+In progress
 
 ## Current Goal
 
-Bắt đầu Unit 01.
+Unit 02
 
 ## Completed
 
 - Khung dự án: context (6 file), spec 4 unit, cấu hình ESLint + Prettier, `AGENTS.md`.
+- Unit 01: Apollo Server (query hello, helper test)
 
 ## In Progress
 
@@ -20,10 +21,9 @@ Bắt đầu Unit 01.
 
 ## Next Up
 
-1. Unit 01 — Apollo Server (`context/specs/01-apollo-server.md`)
-2. Unit 02 — API truy vấn người dùng (`02-user-query-api.md`)
-3. Unit 03 — Xác thực JWT (`03-jwt-authentication.md`)
-4. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
+1. Unit 02 — API truy vấn người dùng (`02-user-query-api.md`)
+2. Unit 03 — Xác thực JWT (`03-jwt-authentication.md`)
+3. Unit 04 — Kiểm soát quyền truy cập (`04-access-control.md`)
 
 ## Open Questions
 
